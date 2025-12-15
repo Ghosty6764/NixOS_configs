@@ -22,6 +22,7 @@ let
 
 in{
    programs.firefox.enable = true;
+   programs.git.enable = true;
    
    jovian = {
     steam.enable = true;
