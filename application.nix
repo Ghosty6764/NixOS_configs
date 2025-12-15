@@ -68,7 +68,7 @@ in{
       jovian-chaotic.mangohud
       goverlay
       protontricks
-      mangayomi
+      komikku
       wpsoffice
       telegram-desktop
 
