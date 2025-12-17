@@ -69,24 +69,24 @@
       cups-filters
       cups-pdf-to-pdf
       cups-browsed
-      gutenprint
-      gutenprintBin
       hplip
       hplipWithPlugin
-      epson-escpr
-      epson-escpr2
-      epson-201401w
-      cnijfilter2
-      canon-cups-ufr2
-      brlaser
-      brgenml1lpr
-      brgenml1cupswrapper
-      splix
-      samsung-unified-linux-driver
-      postscript-lexmark
-      foomatic-filters
-      foomatic-db
-      foomatic-db-engine
+#       gutenprint
+#       gutenprintBin
+#       epson-escpr
+#       epson-escpr2
+#       epson-201401w
+#       cnijfilter2
+#       canon-cups-ufr2
+#       brlaser
+#       brgenml1lpr
+#       brgenml1cupswrapper
+#       splix
+#       samsung-unified-linux-driver
+#       postscript-lexmark
+#       foomatic-filters
+#       foomatic-db
+#       foomatic-db-engine
     ];
   };
 
@@ -106,10 +106,27 @@
     QT_QPA_PLATFORM = "xcb";
   };
 
+  # Zsh Config
+  programs.zsh = {
+    enable = true;
+    enableCompletion = true;
+    autosuggestions.enable = true;
+    syntaxHighlighting.enable = true;
+
+    shellAliases = {
+    ll = "ls -la";
+    la = "ls -A";
+    l = "ls -CF";
+    nix-clean = "sudo nix-collect-garbage -d && sudo nix-store --optimise";
+    nix-update = "cd /etc/nixos/ && sudo nix flake update && cd && sudo nixos-rebuild switch --upgrade";
+    };
+  };
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.taxi = {
     isNormalUser = true;
     description = "taxi";
+    shell = pkgs.zsh;
     extraGroups = [ "networkmanager" "wheel" "video" "audio" "render" "lp"];
     packages = with pkgs; [
       kdePackages.kate
@@ -119,22 +136,13 @@
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
-    nix.settings = {
+  nix.settings = {
     experimental-features = [ "nix-command" "flakes" ];
     http-connections = 64;
     max-jobs = "auto";
     cores = 0;
   };
   
-   environment.shellAliases = {
-    ll = "ls -la";
-    la = "ls -A";
-    l = "ls -CF";
-    
-    #nix-update = "sudo nixos-rebuild switch --upgrade";
-    nix-clean = "sudo nix-collect-garbage -d && sudo nix-store --optimise";
-    nix-update = "cd /etc/nixos/ && sudo nix flake update && cd && sudo nixos-rebuild switch --upgrade";
-    };
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
 
