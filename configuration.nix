@@ -18,13 +18,15 @@
   systemd.tmpfiles.rules = [
     "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}"
   ];
-  hardware.graphics.extraPackages = with pkgs; [
-  rocmPackages.clr.icd
-  rocmPackages.clr
-  ];
+
    hardware.graphics = {
    enable = true;
    enable32Bit = true;
+   extraPackages = with pkgs; [
+      rocmPackages.clr.icd
+      rocmPackages.clr
+      mesa.opencl
+    ];
   };
 
   networking.hostName = "nix-studio";
@@ -97,6 +99,11 @@
     alsa.support32Bit = true;
     pulse.enable = true;
     jack.enable = true;
+  };
+
+  environment.variables = {
+    RUSTICL_ENABLE = "radeonsi";
+    QT_QPA_PLATFORM = "xcb";
   };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
