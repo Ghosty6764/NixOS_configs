@@ -27,27 +27,25 @@ in{
     steam.enable = true;
     hardware.has.amd.gpu = true;
     steam.desktopSession = true;
-   };
+   }; 
 
    programs.gamemode.enable = true;
     
    programs.appimage.enable = true;
    programs.appimage.binfmt = true;
    
-   services.flatpak.enable = true;
-   
    programs.gamescope.enable = true;
    
    environment.systemPackages = with pkgs;[
       git
       cemu
-      myPythonEnv
+      myPythonEnv      
       neovim
       fastfetch
       kitty
       brave
       vscode
-      stable.vlc
+      vlc
       blender-hip
       gnome-disk-utility
       heroic
@@ -78,17 +76,15 @@ in{
       ffmpeg
       gcc
       jq
+      zip
+      unzip
       unrar
+      clinfo
+      bmon
       spotdl
       pciutils
       usbutils
       bat
 
    ];
-
-   environment.variables = {
-    RUSTICL_ENABLE = "radeonsi";
-  };
-
-
 }
