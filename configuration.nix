@@ -8,17 +8,19 @@
     ];
 
   # Bootloader.
+  boot.kernelModules = [ "amdgpu" ];
   boot.initrd.kernelModules = [ "amdgpu" ];
   boot.loader.systemd-boot.enable = true;
   boot.kernelPackages = pkgs.linuxPackages_zen;
   boot.loader.efi.canTouchEfiVariables = true;
-  
+
   # AMD GPU Config
   systemd.tmpfiles.rules = [
     "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}"
   ];
   hardware.graphics.extraPackages = with pkgs; [
   rocmPackages.clr.icd
+  rocmPackages.clr
   ];
    hardware.graphics = {
    enable = true;
@@ -45,6 +47,7 @@
   # Enable the X11 windowing system.
   # You can disable this if you're only using the Wayland session.
   services.xserver.enable = true;
+  services.xserver.videoDrivers = [ "amdgpu" ];
 
   # Enable the KDE Plasma Desktop Environment.
   services.displayManager.sddm.enable = true;
@@ -57,7 +60,33 @@
   };
 
   # Enable CUPS to print documents.
-   services.printing.enable = true;
+  services.printing = {
+    enable = true;
+    drivers = with pkgs; [
+      cups
+      cups-filters
+      cups-pdf-to-pdf
+      cups-browsed
+      gutenprint
+      gutenprintBin
+      hplip
+      hplipWithPlugin
+      epson-escpr
+      epson-escpr2
+      epson-201401w
+      cnijfilter2
+      canon-cups-ufr2
+      brlaser
+      brgenml1lpr
+      brgenml1cupswrapper
+      splix
+      samsung-unified-linux-driver
+      postscript-lexmark
+      foomatic-filters
+      foomatic-db
+      foomatic-db-engine
+    ];
+  };
 
   # Enable sound with pipewire.
   services.pulseaudio.enable = false;
@@ -74,7 +103,7 @@
   users.users.taxi = {
     isNormalUser = true;
     description = "taxi";
-    extraGroups = [ "networkmanager" "wheel" "video" "audio" "render"];
+    extraGroups = [ "networkmanager" "wheel" "video" "audio" "render" "lp"];
     packages = with pkgs; [
       kdePackages.kate
       kdePackages.kdenlive
