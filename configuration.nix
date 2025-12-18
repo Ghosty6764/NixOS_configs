@@ -71,22 +71,6 @@
       cups-browsed
       hplip
       hplipWithPlugin
-#       gutenprint
-#       gutenprintBin
-#       epson-escpr
-#       epson-escpr2
-#       epson-201401w
-#       cnijfilter2
-#       canon-cups-ufr2
-#       brlaser
-#       brgenml1lpr
-#       brgenml1cupswrapper
-#       splix
-#       samsung-unified-linux-driver
-#       postscript-lexmark
-#       foomatic-filters
-#       foomatic-db
-#       foomatic-db-engine
     ];
   };
 
