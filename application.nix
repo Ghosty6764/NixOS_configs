@@ -1,4 +1,4 @@
-{  config, pkgs, stable, ...  }:
+{  config, pkgs, stable, chaotic, jovian, ...  }:
 
 let
   myPythonEnv = stable.python3.withPackages (ps: with ps; [
@@ -23,57 +23,22 @@ let
 in{
    programs.firefox.enable = true;
    
-   programs.steam = {
-    enable = true;
-    gamescopeSession.enable = true;
-    extraCompatPackages = with pkgs; [
-      proton-ge-bin
-    ];
+   jovian = {
+    steam.enable = true;
+    hardware.has.amd.gpu = true;
+    steam.desktopSession = true;
    }; 
-   
+
    programs.gamemode.enable = true;
-   programs.gamescope.enable = true;
-   
-   programs.hyprland = {
-    enable = true;
-    xwayland.enable = true;
-  };
-
-  xdg.portal = {
-    enable = true;
-    extraPortals = with pkgs; [
-      xdg-desktop-portal-hyprland
-      xdg-desktop-portal-gtk
-    ];
-  };
-
-
     
    programs.appimage.enable = true;
    programs.appimage.binfmt = true;
    
-   
+   programs.gamescope.enable = true;
    
    environment.systemPackages = with pkgs;[
-      kitty
-      hyprpaper
-      hyprlock
-      hypridle
-      waybar
-      nwg-look
-      nwg-displays
-      wofi
-      grim
-      slurp
-      wl-clipboard
-      cliphist            
-      playerctl              
-      brightnessctl        
-      networkmanagerapplet
-      blueman
-      
-      nemo
       cemu
+      kitty
       brave
       vscode
       vlc
@@ -90,7 +55,7 @@ in{
       protonvpn-gui
       protonup-qt
       spotify
-      mangohud
+      jovian-chaotic.mangohud
       goverlay
       protontricks
       komikku
@@ -128,6 +93,8 @@ in{
 fonts = {
   enableDefaultPackages = true;
   packages = with pkgs; [
+    noto-fonts
+    noto-fonts-color-emoji
     dejavu_fonts
     jetbrains-mono
     font-awesome
