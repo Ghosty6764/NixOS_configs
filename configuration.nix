@@ -29,6 +29,21 @@
     ];
   };
 
+ hardware.bluetooth = {
+  enable = true;
+  powerOnBoot = true;
+  settings = {
+    General = {
+      Experimental = true;
+      FastConnectable = true;
+    };
+    Policy = {
+      AutoEnable = true;
+    };
+  };
+ };
+
+
   networking.hostName = "nix-studio";
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -54,6 +69,7 @@
   # Enable the KDE Plasma Desktop Environment.
   services.displayManager.ly.enable = true;
   services.desktopManager.plasma6.enable = true;
+  services.blueman.enable = true;
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -123,7 +139,7 @@
     isNormalUser = true;
     description = "taxi";
     shell = pkgs.zsh;
-    extraGroups = [ "networkmanager" "wheel" "video" "audio" "render" "lp"];
+    extraGroups = [ "networkmanager" "wheel" "video" "audio" "render" "lp" "storage" ];
     packages = with pkgs; [
       kdePackages.kate
       kdePackages.kdenlive
