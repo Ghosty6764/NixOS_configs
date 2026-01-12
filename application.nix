@@ -1,4 +1,4 @@
-{  config, pkgs, stable, chaotic, jovian, ...  }:
+{  config, pkgs, stable, ...  }:
 
 let
   myPythonEnv = stable.python3.withPackages (ps: with ps; [
@@ -23,11 +23,10 @@ let
 in{
    programs.firefox.enable = true;
    
-   jovian = {
-    steam.enable = true;
-    hardware.has.amd.gpu = true;
-    steam.desktopSession = true;
-   }; 
+   programs.steam.enable = true;
+   programs.steam.extraCompatPackages = with pkgs; [
+      proton-ge-bin
+    ];
 
    programs.gamemode.enable = true;
     
@@ -42,12 +41,11 @@ in{
       brave
       vscode
       vlc
-      blender-hip
+      blender
       gnome-disk-utility
       heroic
       obs-studio
       handbrake
-      davinci-resolve
       discord
       wineWowPackages.stagingFull
       ryubing
@@ -55,7 +53,7 @@ in{
       protonvpn-gui
       protonup-qt
       spotify
-      jovian-chaotic.mangohud
+      mangohud
       goverlay
       protontricks
       komikku
@@ -74,6 +72,8 @@ in{
       ffmpeg
       gcc
       jq
+      wget
+      curl
       zip
       unzip
       myPythonEnv
