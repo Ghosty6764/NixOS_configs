@@ -8,8 +8,6 @@
     ];
 
   # Bootloader.
-  boot.kernelModules = [ "amdgpu" ];
-  boot.initrd.kernelModules = [ "amdgpu" ];
   boot.loader.systemd-boot.enable = true;
   boot.kernelPackages = pkgs.linuxPackages_zen;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -64,8 +62,8 @@
   # Enable the X11 windowing system.
   # You can disable this if you're only using the Wayland session.
   services.xserver.enable = true;
-  services.xserver.videoDrivers = [ "amdgpu" ];
- 
+  services.flatpak.enable = true;
+  services.blueman.enable = true;
   services.displayManager.ly = {
   enable = true;
   settings = {
@@ -73,9 +71,8 @@
     animate = true;
     bigclock = true;
     load = false;
+    };
   };
-};
-  services.blueman.enable = true;
   
   # Enable the KDE Plasma Desktop Environment.
   services.desktopManager.plasma6.enable = true;
@@ -151,7 +148,6 @@
     extraGroups = [ "networkmanager" "wheel" "video" "audio" "render" "lp" "storage" ];
     packages = with pkgs; [
       kdePackages.kate
-      kdePackages.kdenlive
     ];
   };
 
